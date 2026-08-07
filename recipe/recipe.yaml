@@ -2,17 +2,17 @@ schema_version: 1
 
 context:
   name: zemaxglass
-  version: "2.0.0"
+  version: "2.0.1"
   python_min: "3.12"
-  build_number: 2
+  build_number: 0
 
 package:
   name: ${{ name }}
   version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/z/zemaxglass/zemaxglass-${{ version }}.tar.gz
-  sha256: cb88f633b37cda6e583e00ec1e6f87d1f4b53a8695142cf9357e7496349bddf0
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: d59368c855f1548c6b6ff954dc2e3254ca4a9d9fe5260616df64ccfd846d7040
 
 build:
   number: ${{ build_number }}
@@ -25,8 +25,8 @@ build:
 requirements:
   host:
     - python ${{ python_min }}.*
-    - setuptools >=82.0.1
-    - setuptools-scm >=10.0.5
+    - setuptools >=83.0.0
+    - setuptools-scm >=10.2.1
     - pip
   run:
     - python >=${{ python_min }}

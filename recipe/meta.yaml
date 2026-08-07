@@ -1,0 +1,51 @@
+{% set name = "zemaxglass" %}
+{% set version = "2.0.1" %}
+{% set python_min = "3.12" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: d59368c855f1548c6b6ff954dc2e3254ca4a9d9fe5260616df64ccfd846d7040
+
+build:
+  number: 0
+  noarch: python
+  entry_points:
+    - zemaxglassdemo = ZemaxGlass.ZemaxGlass:main
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - setuptools >=83.0.0
+    - setuptools-scm
+    - python {{ python_min }}
+  run:
+    - python >={{ python_min }}
+    - numpy >=2.4.6
+    - scipy >=1.17.1
+    - matplotlib-base >=3.10.9
+    - cycler >=0.12.1
+
+test:
+  imports:
+    - ZemaxGlass
+  commands:
+    - pip check
+  requires:
+    - pip
+    - python {{ python_min }}
+
+about:
+  home: https://github.com/nzhagen/zemaxglass
+  summary: Zemax glass (.agf) file reader
+  license: MIT
+  license_file: LICENSE.txt
+  doc_url: https://github.com/nzhagen/zemaxglass/ZemaxGlass_user_manual.pdf
+
+extra:
+  recipe-maintainers:
+    - mjhoptics

@@ -4,7 +4,7 @@ context:
   name: zemaxglass
   version: "2.0.1"
   python_min: "3.12"
-  build_number: 0
+  build_number: 1
 
 package:
   name: ${{ name }}
@@ -17,7 +17,9 @@ source:
 build:
   number: ${{ build_number }}
   noarch: python
-  script: ${{ PYTHON }} -m pip install .
+  script:
+    - echo 'recursive-include src *.agf *.AGF' > MANIFEST.in
+    - ${{ PYTHON }} -m pip install .
   python:
     entry_points:
       - zemaxglassdemo = ZemaxGlass.ZemaxGlass:main
@@ -43,6 +45,13 @@ tests:
       python_version:
         - ${{ python_min }}.*
         - "*"
+  - package_contents:
+      site_packages:
+        - ZemaxGlass/**
+        - ZemaxGlass/AGF_files/archer.agf
+        - ZemaxGlass/AGF_files/*.agf
+        - zemaxglass-${{ version }}.dist-info/**
+      strict: true
 
 about:
   summary: Zemax glass (.agf) file reader
